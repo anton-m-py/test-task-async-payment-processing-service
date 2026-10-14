@@ -1,7 +1,5 @@
 """Environment-driven settings, split per process so each one requires only what it uses."""
 
-from functools import lru_cache
-
 from pydantic import Field, PostgresDsn, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -53,13 +51,3 @@ class ConsumerSettings(BaseSettings):
     gateway_max_delay_s: float = Field(default=5.0, ge=0)
     gateway_success_rate: float = Field(default=0.9, ge=0, le=1)
     consumer_concurrency: int = Field(default=10, ge=1)
-
-
-@lru_cache
-def database_settings() -> DatabaseSettings:
-    return DatabaseSettings()
-
-
-@lru_cache
-def rabbit_settings() -> RabbitSettings:
-    return RabbitSettings()
