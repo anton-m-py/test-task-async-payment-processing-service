@@ -82,3 +82,8 @@ class PaymentCreatedEvent(BaseModel):
     """Body of the `payments.new` message: consumers re-read the payment from the database."""
 
     payment_id: uuid.UUID
+
+
+class WebhookPayload(BaseModel):
+    event: str = Field(examples=["payment.succeeded", "payment.failed"])
+    payment: PaymentRead
