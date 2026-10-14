@@ -102,7 +102,11 @@ asyncio_default_test_loop_scope = "session"
 markers = [
     "integration: needs Docker; starts PostgreSQL and RabbitMQ via testcontainers",
 ]
-filterwarnings = ["error"]
+filterwarnings = [
+    "error",
+    # testcontainers' own RabbitMQ module still uses its deprecated wait decorator.
+    "ignore:The @wait_container_is_ready decorator is deprecated:DeprecationWarning",
+]
 
 [tool.coverage.run]
 source = ["payments"]
